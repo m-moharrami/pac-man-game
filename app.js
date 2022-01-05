@@ -49,9 +49,34 @@ function createBoard() {
         grid.appendChild(square);
         // put square in squares array
         squares.push(square);
+
+        if (layout[i] === 0) {
+            squares[i].classList.add('pac-dot');
+        } else if (layout[i] === 1) {
+            squares[i].classList.add('wall');
+        } else if (layout[i] === 3) {
+            squares[i].classList.add('power-pellet');
+        }
     }
 }
 
 createBoard();
 
-console.log(squares);
+
+// starting position of Pac Man
+let pacmanCurrentIndex = 490;
+squares[pacmanCurrentIndex].classList.add('pacman');
+
+function control(e) {
+    if (e.keyCode === 40) {
+        console.log('pressed down');
+    } else if (e.keyCode === 37) {
+        console.log('pressed left');
+    } else if (e.keyCode === 38) {
+        console.log('pressed up');
+    } else if (e.keyCode === 39) {
+        console.log('pressed right');
+    }
+}
+
+document.addEventListener('keyup', control);

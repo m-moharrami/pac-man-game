@@ -40,4 +40,5 @@ Game Elements
 .pacman {
     background-color: yellow;
     border-radius: 7.5px;
+    border: none;
 }
