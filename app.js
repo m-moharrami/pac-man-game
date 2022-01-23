@@ -125,10 +125,6 @@ function pacDotEaten() {
 }
 
 function powerPalletEaten() {
-    //if square pacman is in contains a power pallet
-    // add a score of 10
-    // change each of the four ghosts to isScared
-    // use setTimeout to unscared ghosts after 10 seconds
     if (squares[pacmanCurrentIndex].classList.contains('power-pallet')) {
         score += 10;
         ghosts.forEach(ghost => ghost.isScared = true);
