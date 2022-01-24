@@ -184,5 +184,12 @@ function moveGhost(ghost) {
         if (ghost.isScared) {
             squares[ghost.currentIndex].classList.add('scared-ghost');
         }
+
+        if (squares[ghost.currentIndex].classList.contains('pacman') && ghost.isScared) {
+            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+            ghost.currentIndex = ghost.startIndex;
+            score += 100;
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+        }
     }, ghost.speed);
 }
