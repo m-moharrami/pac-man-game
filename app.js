@@ -111,6 +111,8 @@ function control(e) {
     squares[pacmanCurrentIndex].classList.add('pacman');
     pacDotEaten();
     powerPelletEaten();
+    checkForWin();
+    checkForGameOver();
 }
 
 document.addEventListener('keyup', control);
@@ -128,8 +130,9 @@ function powerPelletEaten() {
     if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
         squares[pacmanCurrentIndex].classList.remove('power-pellet');
         score += 10;
+        scoreDisplay.innerHTML = score;
         ghosts.forEach(ghost => ghost.isScared = true);
-        setTimeout(unscareGhosts, 10000);
+        setTimeout(unscareGhosts, 100000);
     }
 }
 
@@ -187,8 +190,9 @@ function moveGhost(ghost) {
 
         if (squares[ghost.currentIndex].classList.contains('pacman') && ghost.isScared) {
             squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
-            ghost.currentIndex = ghost.startIndex;
             score += 100;
+            scoreDisplay.innerHTML = score;
+            ghost.currentIndex = ghost.startIndex;
             squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
         }
 
@@ -203,4 +207,12 @@ function checkForGameOver() {
             document.removeEventListener('keyup', control);
             scoreDisplay.innerHTML = 'You LOSE!!!';
         }
+}
+
+function checkForWin() {
+    if (score > 274) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerId));
+        document.removeEventListener('keyup', control);
+        scoreDisplay.innerHTML = 'You WIN!!!';
+    }
 }
