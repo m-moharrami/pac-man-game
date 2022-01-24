@@ -110,7 +110,7 @@ function control(e) {
     }
     squares[pacmanCurrentIndex].classList.add('pacman');
     pacDotEaten();
-    powerPalletEaten();
+    powerPelletEaten();
 }
 
 document.addEventListener('keyup', control);
@@ -124,16 +124,17 @@ function pacDotEaten() {
     }
 }
 
-function powerPalletEaten() {
-    if (squares[pacmanCurrentIndex].classList.contains('power-pallet')) {
+function powerPelletEaten() {
+    if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+        squares[pacmanCurrentIndex].classList.remove('power-pellet');
         score += 10;
         ghosts.forEach(ghost => ghost.isScared = true);
-        setTimeout(unscaredGhosts, 10000);
+        setTimeout(unscareGhosts, 10000);
     }
 }
 
-function unscaredGhosts() {
-    ghosts.forEach(ghosts => ghost.isScared = false);
+function unscareGhosts() {
+    ghosts.forEach(ghost => ghost.isScared = false);
 }
 
 class Ghost {
@@ -172,12 +173,16 @@ function moveGhost(ghost) {
         if (!squares[ghost.currentIndex + direction].classList.contains('wall') &&
             !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
                 squares[ghost.currentIndex].classList.remove(ghost.className);
-                squares[ghost.currentIndex].classList.remove('ghost');
+                squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost');
                 ghost.currentIndex += direction;
                 squares[ghost.currentIndex].classList.add(ghost.className);
                 squares[ghost.currentIndex].classList.add('ghost');
             } else {
                 direction = directions[Math.floor(Math.random() * directions.length)];
             }
+
+        if (ghost.isScared) {
+            squares[ghost.currentIndex].classList.add('scared-ghost');
+        }
     }, ghost.speed);
 }
