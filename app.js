@@ -41,14 +41,10 @@ const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
 ];
 
-// create board
 function createBoard() {
     for (let i = 0; i < layout.length; i++) {
-        // create a square
         const square = document.createElement('div');
-        // put square in grid
         grid.appendChild(square);
-        // put square in squares array
         squares.push(square);
 
         if (layout[i] === 0) {
@@ -66,7 +62,6 @@ function createBoard() {
 createBoard();
 
 
-// starting position of Pac Man
 let pacmanCurrentIndex = 490;
 squares[pacmanCurrentIndex].classList.add('pacman');
 
@@ -158,12 +153,11 @@ const ghosts = [
     new Ghost('clyde', 379, 500)
 ];
 
-// draw ghosts onto board
 ghosts.forEach(ghost => {
     squares[ghost.currentIndex].classList.add(ghost.className);
     squares[ghost.currentIndex].classList.add('ghost');
 });
-// move the ghosts
+
 ghosts.forEach(ghost => moveGhost(ghost));
 
 function moveGhost(ghost) {
